@@ -9,3 +9,8 @@ When a commit is made to the macro-calorie-counter repo,
 code pipeline detects it and publishes to elastic beanstalk.
 
 The application code has been separated in this recent change so that the deployment of the application and infrastructure can be separated.
+
+# Roadmap
+1. build automated test suite
+2. fully automate dynamo db deployment w/ data samples
+3. gated pushes to macro-calorie-counter git hub repo
