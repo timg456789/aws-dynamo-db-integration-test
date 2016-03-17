@@ -1,6 +1,62 @@
-var db = require('./database');
-db.init();
-//db.rebuild();
+var test = require('tape');
 
-db.listTables();
-db.insert('banana');
+test('list tables with dynamodb factory', function (t) {
+    t.plan(2);
+
+    var factory = require('./dynamodb-factory');
+    var dynamoDb = factory.create();
+
+    dynamoDb.listTables(function (err, data) {
+        t.false(err, 'error doesnt occur when listing tables');
+        t.ok(data.TableNames, 'data has TableNames property');
+    });
+
+});
+
+test('create table with food-config-factory then describe table to check status is creating', function(t) {
+    t.plan(4);
+
+    var factory = require('./dynamodb-factory');
+    var db = factory.create();
+    var foodConfigFactory = require('./food-config-factory');
+
+    var uuid = require('node-uuid');
+    var tableName = uuid.v4();
+    var primaryKey = 'consumer';
+
+    var foodConfig = foodConfigFactory.create(tableName, primaryKey);
+
+    db.createTable(foodConfig, function(err, data) {
+        t.false(err, 'error doesnt occur when creating table');
+        t.equal(data.TableDescription.TableStatus, 'CREATING', 'table status is creating');
+
+        var describeParams = {};
+        describeParams.TableName = tableName;
+        db.describeTable(describeParams, function (err, data) {
+            t.false(err, 'error doesnt occur when describing table');
+            t.equal(data.Table.TableStatus, 'CREATING', 'table status is still creating');
+
+        });
+    });
+});
+
+
+
+
+//
+//
+
+
+
+
+
+
+//db.listTables();
+//db.deleteTable();
+/*db.rebuild(function () {
+    console.log('waiting for table to be created');
+    runWhenTableIsFound(FOOD, function() {
+        console.log('inserting into table: ' + FOOD);
+        //db.insert('banana');
+    });
+});*/
