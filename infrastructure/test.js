@@ -14,7 +14,7 @@ test('list tables with dynamodb factory', function (t) {
 });
 
 test('create table with food-config-factory then describe table to check status is creating', function(t) {
-    t.plan(6);
+    t.plan(4);
 
     var factory = require('./dynamodb-factory');
     var db = factory.create();
@@ -29,13 +29,6 @@ test('create table with food-config-factory then describe table to check status 
     db.createTable(foodConfig, function(err, data) {
         t.false(err, 'error doesnt occur when creating table');
         t.equal(data.TableDescription.TableStatus, 'CREATING', 'table status is creating');
-
-        var describeParams = {};
-        describeParams.TableName = tableName;
-        db.describeTable(describeParams, function (err, data) {
-            t.false(err, 'error doesnt occur when describing table');
-            t.equal(data.Table.TableStatus, 'CREATING', 'table status is still creating');
-        });
 
         var tableCreationWait = require('./table-creation-wait');
         var desiredStatus = 'ACTIVE';
