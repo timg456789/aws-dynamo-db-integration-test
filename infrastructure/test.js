@@ -30,6 +30,9 @@ test('create table with food-config-factory then describe table to check status 
         t.false(err, 'error doesnt occur when creating table');
         t.equal(data.TableDescription.TableStatus, 'CREATING', 'table status is creating');
 
+        var describeParams = {};
+        describeParams.TableName = tableName;
+
         var tableCreationWait = require('./table-creation-wait');
         var desiredStatus = 'ACTIVE';
 
