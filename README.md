@@ -11,6 +11,19 @@ code pipeline detects it and publishes to elastic beanstalk.
 The application code has been separated in this recent change so that the deployment of the application and infrastructure can be separated.
 
 # Roadmap
-1. build automated test suite
-2. fully automate dynamo db deployment w/ data samples
-3. gated pushes to macro-calorie-counter git hub repo
+1. build automated test suite - Projected 04/01/2016
+    1. add the tape framework - Completed 03/15/2016
+    2. implement strict TDD by separating tested and un-tested code(this is no longer even commit worthy) - Completed 03/16/2016
+    3. create a test folder and run all tests in folder - Projected 03/30/2016
+2. fully automate dynamo db deployment w/ data samples - Projected 04/06/2016
+    1. test table cleanup
+    2. data samples
+    3. query samples
+    4. production code deployment
+        1. production and test configurations designating separate resources
+            I don't want to go the route of separate AWS instances.
+            I want a single bill for this project from AWS.
+            Instead it's more appropriate to have test and production IAM users with separate credentials.
+            Tests will only have access to test resources.
+            Production code will only have access to production resources.
+3. gated pushes to macro-calorie-counter git hub repo - Projected 05/01/2016
