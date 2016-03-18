@@ -4,7 +4,9 @@ exports.runWhenTableIs = function (tableName, desiredStatus, db, callback) {
     describeParams.TableName = tableName;
 
     db.describeTable(describeParams, function (err, data) {
-        if (data.Table.TableStatus === desiredStatus) {
+        if (err) {
+            console.log(err);
+        } else if (data.Table.TableStatus === desiredStatus) {
             callback();
         } else{
             var waitTimeMs = 1000;
