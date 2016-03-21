@@ -10,6 +10,11 @@ code pipeline detects it and publishes to elastic beanstalk.
 
 The application code has been separated in this recent change so that the deployment of the application and infrastructure can be separated.
 
+#Practices and Disciplines
+1. Test Driven Development (TDD)
+2. Infrastructure as Code
+3. Continuous Deployment
+
 # Roadmap
 1. build automated test suite - Projected 04/01/2016
     1. add the tape framework - Completed 03/15/2016
