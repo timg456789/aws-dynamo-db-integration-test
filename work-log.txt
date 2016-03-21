@@ -1,0 +1,30 @@
+I find history to be incredibly important and interesting so I will be documenting the changes made that aren't in source control. Ideally all changes could be done through code, but that will have diminishing returns.
+
+03/21/2016
+First let me start by saying I believe that when we open ourselves up to being vulnerable, we make ourselves more secure not less. By being knowingly vulnerable all thoughts of insecurity are addressed. Obscurity becomes unarguably worthless not simply poor practice that may or may not come to haunt us one day. I would rather be attacked immediately and hope that someone has poor self control before I can build too much or someone be kind and generous enough to point out the flaw in a less damaging manner.In reality I'm positioning myself to be protected from those with a deep understanding of my systems, not access, for example a disgruntled colleague.
+
+Setup multi factor authentication on the root AWS account. This was previously enabled, but was disabled for a short period after losing my MFA device.
+
+In addition I made further improvements to create a proper admin account for all admin activities so the root account is rarely used if ever. Taking this further I setup a password policy mainly to provide some assurance on the security of the admin account without MFA authentication.
+
+At this point in time I am looking to setup some kind of continuous integration. I learned from yesterday that I would like to continue with the requirement of only needing github to develop. Until I can perform a commit and have it tested I can't perform a commit and let it be deployed. There does t need to be an automated mechanism, maybe even sometimes I would want to introduce a certain level of service degradation and enter a phase of "compression". I'm going to use the term of compression a lot. This means a form of debt has been incurred. When this happens we either live with it for the life of the application or come back and correct it. It could apply to people who have been working overtime and dealing with tired developers who are now less sharp. It could apply to technical debt of classes that are confusing and can't be easily read or changed. It could mean code was added that wasn't tested. These are all forms of compression, because it can only occur so many times before decompression is required to directly reverse it and if not an explosion will occur. The explosion could be a defect, it could be a developer leaving the project, it could be there is now a piece of code that people are afraid to change and it becomes stagnant. The central idea here is to respect compression and decompression. If not permanent hits will be taken. For example you could never go back in time and remove a defect from having occurred. I mean physical time not got time.
+
+Which brings me to another point of why I would like to invest in a central CI application. The reason is to create a documented test history. A history that can't be changed like source code does. In reality code is interpreted so it alone means nothing. All that matters is what was done when executed at a specific moment in time in a specific environment. Everything else is debatable, but the test doesn't lie. This also instills humbleness. Hubris isn't something I care to encourage, which a powerful tool like git makes possible with the rewriting of test history. We must learn from our mistakes.
+
+So in order to get the tests running what I'm thinking of is setting up something super simple like utilizing browserify and just deploying a pure HTML/CSS/JS app. In order to do this SSL is a must.
+
+That is all I need in order to be test driven and allow safe commits to be made for continuous deployment.
+
+Ssl should be added anyway, because that is the backbone of authentication and authorization. It will open the realm of possibilities further.
+
+One more area to touch on. Everything is treated as production. So no self signed certificates. I don't want to allow bad practices to flow.
+
+Let's refine some requirements more now that I see some of the technicalities. So the requirement is that I can call the public url with https. Anything more than that and I can't test right now, because I don't know how to listen in between the load balancer and ec2. In addition I control that environment so there is a slight possibility for gained privileges if someone with the AWS network access doesn't have access to the ec2 instance, but net admins are generally the ones who are masters of the hardware so I see no loss.
+
+Updated the node JS version to 2.0.8.
+
+So after much research I need a registered domain in order to use certificate manager with the load balancer. I tried using the load balancers domain from AWS and that wasn't accepted.
+
+I registered a domain for only $11 I registered tgonzalez.net for 1 year. Not bad if that's the only cost for an ssl certificate.
+
+I received confirmation for registering he domain and now I'm awaiting the invoice to be payed. It's due today so I'm just not sure if anything needs to be done on my part to pay it or if the card on file will just automatically be used.
