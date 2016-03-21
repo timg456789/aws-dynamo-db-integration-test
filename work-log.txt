@@ -23,10 +23,16 @@ Let's refine some requirements more now that I see some of the technicalities. S
 
 Updated the node JS version to 2.0.8.
 
-So after much research I need a registered domain in order to use certificate manager with the load balancer. I tried using the load balancers domain from AWS and that wasn't accepted.
+So after much research I need a registered domain in order to use AWS's certificate manager with the load balancer. I tried using the load balancers domain from AWS and that wasn't accepted.
 
 I registered a domain for only $11 I registered tgonzalez.net for 1 year. Not bad if that's the only cost for an ssl certificate.
 
 I received confirmation for registering he domain and now I'm awaiting the invoice to be payed. It's due today so I'm just not sure if anything needs to be done on my part to pay it or if the card on file will just automatically be used.
 
 Verified that the invoice for the domain name was paid for automatically. I'm guaranteed that domain name for the next year now.
+
+The next step is to create, apply, and test the cert.
+
+The business rule is that the application is only accessible over https. With the cert being applied to the cname dns record I don't know what would happen if it were accessed directly over the load balancers core dns name. This may mean to disable listening on port 80 within the load balancer.
+
+
