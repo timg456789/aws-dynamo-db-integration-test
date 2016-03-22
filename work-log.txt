@@ -46,3 +46,7 @@ Attempted to hit the load balancer directly to test the technique and the macro 
 This shows that I just need to secure the load balancer to remove listening on port 80 and add it to port 443.
 
 Then I'll go back and update the application. Service will be degraded, possibly, but that is acceptable since I'm denying insecure access which I have deemed not allowed. It's best to fail being locked out if you are going to fail at all when dealing with security.
+
+So I turned switched port listening to 443 and applied the cert. The site wasn't accessible at all anymore.
+
+Going to try and setup a cname on tgonzalez, test, re-apply, then test tgonzalez over 443.
