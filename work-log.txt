@@ -52,3 +52,7 @@ So I turned switched port listening to 443 and applied the cert. The site wasn't
 Going to try and setup a cname on tgonzalez, test, re-apply, then test tgonzalez over 443.
 
 The alias was setup for the load balancer using tgonzalez.net. It's important to note that it's an alias not a cname record. An alias is AWS's route 53(dns service) specialized cname record. The main advantage here is that AWS doesn't charge for alias requests and it has tighter integration with their services. It can point to the service like a load balancer rather than an ip.
+
+Tgonzalez.net is now accessible only over https. The other core dns names are available, but only over https. A warning is given that the connection isn't secure. This is satisfactory for me at this time. Although ideally I would like to offer further protection and block access to those insecure domains to continue to constrain as much as possible.
+
+For now enough has been accomplished. This project now has a strong foothold by enabling a pathway of secure communication to AWS. There are still unknowns about within AWS. I wonder if that's the catch. That the free cert is only good to hit an entry point like cloud front or elb. Otherwise if you think about it and you can put the cert on the ec2 instance itself what's from stopping you from moving it out of AWS and then AWS is giving out certs rather than simply allowing their services to be secured.
