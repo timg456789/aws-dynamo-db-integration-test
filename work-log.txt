@@ -56,3 +56,7 @@ The alias was setup for the load balancer using tgonzalez.net. It's important to
 Tgonzalez.net is now accessible only over https. The other core dns names are available, but only over https. A warning is given that the connection isn't secure. This is satisfactory for me at this time. Although ideally I would like to offer further protection and block access to those insecure domains to continue to constrain as much as possible.
 
 For now enough has been accomplished. This project now has a strong foothold by enabling a pathway of secure communication to AWS. There are still unknowns about within AWS. I wonder if that's the catch. That the free cert is only good to hit an entry point like cloud front or elb. Otherwise if you think about it and you can put the cert on the ec2 instance itself what's from stopping you from moving it out of AWS and then AWS is giving out certs rather than simply allowing their services to be secured.
+
+Actually there is one more thing I didn't try. Which is to open port listening within elastic beanstalk. Right now only port 80 is open to the load balancer. This is done under the elastic beanstalk instances "configuration" tab. Still seems far fetched but I'll try it next.
+
+And I want to change the name of the repo to tgonzalez.net. Kind of.
