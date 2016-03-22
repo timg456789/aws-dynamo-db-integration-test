@@ -33,6 +33,6 @@ Verified that the invoice for the domain name was paid for automatically. I'm gu
 
 The next step is to create, apply, and test the cert.
 
-The business rule is that the application is only accessible over https. With the cert being applied to the cname dns record I don't know what would happen if it were accessed directly over the load balancers core dns name. This may mean to disable listening on port 80 within the load balancer.
+Requirement:the application is only accessible over https.
 
-
+Performed a whois on tgonzalez.net in order to verify personal info is not displayed.
