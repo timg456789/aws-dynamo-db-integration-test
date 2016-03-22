@@ -38,3 +38,11 @@ Requirement:the application is only accessible over https.
 Performed a whois on tgonzalez.net in order to verify personal info is not displayed.
 
 Went back into AWS cer manager and requested an ssl cert for tgonzalez.net. Waiting on approval.
+
+Attempted to hit the ec2 instance directly. This was not allowed and the page didn't load over http.
+
+Attempted to hit the load balancer directly to test the technique and the macro calorie counter page did load.
+
+This shows that I just need to secure the load balancer to remove listening on port 80 and add it to port 443.
+
+Then I'll go back and update the application. Service will be degraded, possibly, but that is acceptable since I'm denying insecure access which I have deemed not allowed. It's best to fail being locked out if you are going to fail at all when dealing with security.
