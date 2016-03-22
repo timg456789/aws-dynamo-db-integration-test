@@ -50,3 +50,5 @@ Then I'll go back and update the application. Service will be degraded, possibly
 So I turned switched port listening to 443 and applied the cert. The site wasn't accessible at all anymore.
 
 Going to try and setup a cname on tgonzalez, test, re-apply, then test tgonzalez over 443.
+
+The alias was setup for the load balancer using tgonzalez.net. It's important to note that it's an alias not a cname record. An alias is AWS's route 53(dns service) specialized cname record. The main advantage here is that AWS doesn't charge for alias requests and it has tighter integration with their services. It can point to the service like a load balancer rather than an ip.
