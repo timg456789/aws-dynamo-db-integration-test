@@ -31,8 +31,10 @@ I received confirmation for registering he domain and now I'm awaiting the invoi
 
 Verified that the invoice for the domain name was paid for automatically. I'm guaranteed that domain name for the next year now.
 
-The next step is to create, apply, and test the cert.
+The next step is to create, apply, and test the certificate (cert).
 
 Requirement:the application is only accessible over https.
 
 Performed a whois on tgonzalez.net in order to verify personal info is not displayed.
+
+Went back into AWS cer manager and requested an ssl cert for tgonzalez.net. Waiting on approval.
