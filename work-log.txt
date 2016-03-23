@@ -60,3 +60,17 @@ For now enough has been accomplished. This project now has a strong foothold by 
 Actually there is one more thing I didn't try. Which is to open port listening within elastic beanstalk. Right now only port 80 is open to the load balancer. This is done under the elastic beanstalk instances "configuration" tab. Still seems far fetched but I'll try it next.
 
 And I want to change the name of the repo to tgonzalez.net. Kind of.
+
+The more I think about it's not good to have the root domain as https only. The root domain is going to be the entry point. It would be more appropriate to have a subdomain like secure.tgonzalez.net https only. That way I don't have to worry about users trying to access the site insecurely and completely denying their request.
+
+Well what is the site for? Is it for people who don't know what they are doing?
+
+See this is why testing is so important. It's going to keep me from being a psycho, I mean psychic. The test is the github link loads the food log form. Let's try that.
+
+Test passes that's the end of that. Let's move on now to writing more tests and making them pass.
+
+Actually I get to work on the testing framework. The testing framework required SSL so that it can properly be secured.
+
+I think I may want to use testling. Idk there are a lot of unknowns still. I have only one test. Is that enough?
+
+I want a central CI in time, but not right now. See part of the test for the CI is that it can test both infrastructure and application code. I don't have any code for my application. I just need to push throug
