@@ -4,11 +4,11 @@ exports.create = function(tableName, primaryKey) {
         TableName : tableName,
         KeySchema: [
             { AttributeName: primaryKey, KeyType: "HASH"},
-            { AttributeName: "date", KeyType: "RANGE" }
+            { AttributeName: "time", KeyType: "RANGE" }
         ],
         AttributeDefinitions: [
             { AttributeName: primaryKey, AttributeType: "S" },
-            { AttributeName: "date", AttributeType: "N" }
+            { AttributeName: "time", AttributeType: "N" }
         ],
         ProvisionedThroughput: {
             ReadCapacityUnits: 1,
