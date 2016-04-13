@@ -4,6 +4,11 @@ var db = factory.create();
 var DELETE_PREFIX = 'integration-test-';
 var uuid = require('node-uuid');
 var tableName = DELETE_PREFIX + uuid.v4();
+var AWS = require('aws-sdk');
+var config = {
+    region: 'us-east-1'
+};
+var docDb = new AWS.DynamoDB.DocumentClient(config);
 
 test('create table with food-config-factory', function(t) {
     t.plan(2);
@@ -40,23 +45,41 @@ test('insert test data', function (t) {
     var data = {
         TableName: tableName,
         Item: {
-            user: "oh-yea",
+            user: 'testing-123',
             time: new Date().getTime(),
-            //name
-            //amount: 1388
+            name: 'first dollar',
+            amount: 101
         }
     };
 
-    var AWS = require('aws-sdk');
-    var config = {
-        region: 'us-east-1'
-    };
-    var docDb = new AWS.DynamoDB.DocumentClient(config);
     docDb.put(data, function(err, data) {
         t.ok(!err, err);
+        console.log(data);
         t.ok(data);
     });
 
+
+});
+
+test('get test data', function(t) {
+    t.plan(2);
+
+    var conditions = {
+        TableName: tableName,
+        KeyConditionExpression: '#storedUser = :desiredUser',
+        ExpressionAttributeNames: {
+            '#storedUser': 'user'
+        },
+        ExpressionAttributeValues: {
+            ':desiredUser': 'testing-123'
+        }
+    }
+
+    docDb.query(conditions, function(err, data) {
+        console.log(data);
+        t.ok(!err, err);
+        t.ok(data.Count > 0, 'table has data');
+    })
 
 });
 
