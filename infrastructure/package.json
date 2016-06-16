@@ -4,7 +4,8 @@
   "description": "",
   "main": "database.js",
   "scripts": {
-    "test": "node test"
+    "test": "node test",
+    "deploy": "node deploy"
   },
   "license": "./LICENSE",
   "dependencies": {
