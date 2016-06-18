@@ -5,7 +5,7 @@ exports.runWhenTableIs = function (tableName, desiredStatus, db, callback) {
 
     db.describeTable(describeParams, function (err, data) {
         if (err) {
-            console.log(err);
+            throw err;
         } else if (data.Table.TableStatus === desiredStatus) {
             callback();
         } else{
@@ -19,4 +19,34 @@ exports.runWhenTableIs = function (tableName, desiredStatus, db, callback) {
         }
     });
 
+}
+
+function tableExists(searchName, tableNames) {
+    var exists = false;
+    for (var i = 0; i < tableNames.length; i++) {
+        if (searchName === tableNames[i]) {
+            exists = true;
+            break;
+        }
+    }
+    return exists;
+}
+
+exports.runWhenTableIsNotFound = function (tableName, db, callback) {
+    db.listTables(function (err, data) {
+        if (err) {
+            throw err;
+        } else {
+            if (!tableExists(tableName, data.TableNames)) {
+                callback();
+            } else {
+                var waitTimeMs = 1000;
+                setTimeout(function () {
+                    console.log('table found');
+                    console.log('waiting ' + waitTimeMs + 'ms for table to not be found.');
+                    exports.runWhenTableIsNotFound(tableName, db, callback);
+                }, waitTimeMs);
+            }
+        }
+    });
 }

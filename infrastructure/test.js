@@ -1,14 +1,55 @@
 var test = require('tape');
 var factory = require('./dynamodb-factory');
 var db = factory.create();
-var DELETE_PREFIX = 'integration-test-';
-var uuid = require('node-uuid');
-var tableName = DELETE_PREFIX + uuid.v4();
 var AWS = require('aws-sdk');
 var config = {
     region: 'us-east-1'
 };
 var docDb = new AWS.DynamoDB.DocumentClient(config);
+var tableCreationWait = require('./table-creation-wait');
+
+var tableName = 'integration-test-';
+
+function tableExists(searchName, tableNames) {
+    var exists = false;
+
+    for (var i = 0; i < tableNames.length; i++) {
+        if (searchName === tableNames[i]) {
+            exists = true;
+            break;
+        }
+    }
+
+    return exists;
+}
+
+test('delete table if in use', function(t) {
+    t.plan(4);
+
+    db.listTables(function (err, data) {
+        t.false(err, 'error doesnt occur when listing tables');
+
+        var exists = tableExists(tableName, data.TableNames);
+        if (!exists) {
+            console.log('table not found for delete');
+            t.pass();
+            t.pass();
+            t.pass();
+        } else {
+            console.log('table found for delete');
+
+            var deleteTestTable = { TableName: tableName };
+            db.deleteTable(deleteTestTable, function(err, data) {
+                t.ok(!err, err);
+                t.equal(data.TableDescription.TableStatus, 'DELETING', 'integration-test table is deleting');
+                tableCreationWait.runWhenTableIsNotFound(tableName, db, function () {
+                    console.log('table is not found, continuing');
+                    t.pass();
+                });
+            });
+        }
+    });
+});
 
 test('create table with food-config-factory', function(t) {
     t.plan(2);
@@ -28,7 +69,6 @@ test('table status changes from creating to active', function(t) {
     var describeParams = {};
     describeParams.TableName = tableName;
 
-    var tableCreationWait = require('./table-creation-wait');
     var desiredStatus = 'ACTIVE';
 
     tableCreationWait.runWhenTableIs(tableName, desiredStatus, db, function() {
@@ -80,27 +120,5 @@ test('get test data', function(t) {
         t.ok(!err, err);
         t.ok(data.Count > 0, 'table has data');
     })
-
-});
-
-test('delete integration-test tables', function(t) {
-    t.plan(4);
-
-    db.listTables(function (err, data) {
-        t.false(err, 'error doesnt occur when listing tables');
-        t.ok(data.TableNames, 'data has TableNames property');
-
-        for (var i = 0; i < data.TableNames.length; i++) {
-            var name = data.TableNames[i];
-            if (name.startsWith(DELETE_PREFIX)) {
-                console.log('deleting table: ' + name);
-                var deleteTestTable = { TableName: name };
-                db.deleteTable(deleteTestTable, function(err, data) {
-                    t.ok(!err, err);
-                    t.equal(data.TableDescription.TableStatus, 'DELETING', 'integration-test table is deleting');
-                });
-            }
-        }
-    });
 
 });
