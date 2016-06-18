@@ -8,7 +8,7 @@ var config = {
 var docDb = new AWS.DynamoDB.DocumentClient(config);
 var tableCreationWait = require('./table-creation-wait');
 
-var tableName = 'integration-test-';
+var tableName = 'Entry';
 
 function tableExists(searchName, tableNames) {
     var exists = false;
