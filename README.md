@@ -6,4 +6,4 @@
 Run the full test suite.
 
 ### npm deploy
-Deploy the application instance. Apply updates if available. Make **any** repairs the infrastructure requires.
+Mercilessly deploy the infrastructure. If the desired infrastructure is in use. Tear it down and build it new.
