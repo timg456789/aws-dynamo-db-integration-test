@@ -1,2 +1,2 @@
-var deploy = require('./deploy');
+var deploy = require('./deploy-database');
 deploy.run('infrastructure-as-code');
