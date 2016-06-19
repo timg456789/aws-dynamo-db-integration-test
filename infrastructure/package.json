@@ -5,7 +5,7 @@
   "main": "database.js",
   "scripts": {
     "test": "node test",
-    "deploy": "node ./scripts/deploy-entry"
+    "deploy": "node ./scripts/deploy"
   },
   "license": "./LICENSE",
   "dependencies": {
