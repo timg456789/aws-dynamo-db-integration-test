@@ -1,5 +1,9 @@
 #Balance Sheet
 
+## Architecture
+
+![architecture overview](./documentation/architecture.jpg)
+
 ## Application Specific Files
 
 Some of the data is managed with custom software. It's listed here.
@@ -17,11 +21,6 @@ Run the full test suite.
 
 #### npm deploy
 Mercilessly deploy the infrastructure. If the desired infrastructure is in use, tear it down and build it new.
-
-- database
-- api-implementation
-- api-interface
-- form
 
 ### application
 
